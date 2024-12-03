@@ -268,7 +268,7 @@ export const Tabla = (): JSX.Element => {
 
     doc.text(title1, (pageWidth - title1Width) / 2, currentY + 10)
     currentY += 20
-
+    let height = 0;
     if (file != null) {
       try {
         const imgData = await readFileAsBase64(file)
@@ -287,7 +287,7 @@ export const Tabla = (): JSX.Element => {
         const maxWidth = 80
         const maxHeight = 80
         let width = originalWidth
-        let height = originalHeight
+        height = originalHeight
 
         if (width > maxWidth || height > maxHeight) {
           const aspectRatio = width / height
@@ -312,11 +312,12 @@ export const Tabla = (): JSX.Element => {
       }
     }
   
-    if (currentY + 100 > pageHeight) {
+    currentY += height + 10; // Deja un margen de 10 después de la imagen
+
+    if (currentY + 90 > pageHeight - 20) { // Si la gráfica no cabe
       doc.addPage();
       currentY = 10;
     }
-  
     doc.addImage(chartBase64, "PNG", 10, currentY, 190, 90);
 
     const pdfBlob = doc.output('blob')
