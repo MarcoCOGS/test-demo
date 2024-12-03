@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 128 0 255;
+    --color-secondary: 2 169 244;
+    --color-success: 109 248 76;
+    --color-warning: 248 109 76;
+    --color-error: 248 109 76;
+    --color-info: 36 49 150;
+    --color-divider:36 49 150;
+  }
+}
