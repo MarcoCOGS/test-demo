@@ -1,16 +1,16 @@
-import React from 'react';
+import React from 'react'
 
 interface KInputAreaProps {
-  label: string;
-  value?: string;
-  placeholder?: string;
-  type: string;
-  reactHookForm: any;
-  customStyle?: string;
-  onBlur?: () => void;
-  disabled?: boolean;
-  multiline?: boolean; // Nueva propiedad para habilitar el modo multilinea
-  rows?: number; // Define el número de filas cuando es multilinea
+  label: string
+  value?: string
+  placeholder?: string
+  type: string
+  reactHookForm: any
+  customStyle?: string
+  onBlur?: () => void
+  disabled?: boolean
+  multiline?: boolean // Nueva propiedad para habilitar el modo multilinea
+  rows?: number // Define el número de filas cuando es multilinea
 }
 
 export const KInputArea: React.FC<KInputAreaProps> = ({
@@ -19,7 +19,7 @@ export const KInputArea: React.FC<KInputAreaProps> = ({
   customStyle,
   onBlur,
   disabled = false,
-  rows = 5,
+  rows = 5
 }) => {
   return (
     <div className="h-full flex flex-col min-h-0">
@@ -34,6 +34,5 @@ export const KInputArea: React.FC<KInputAreaProps> = ({
         } border-[1.5px] border-black px-3 py-2 text-black bg-transparent font-medium rounded-[3px] w-full max-h-40 focus:border-white focus:border-[0.5px] ${customStyle}`}
       />
     </div>
-  );
-};
-
+  )
+}

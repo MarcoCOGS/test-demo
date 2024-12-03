@@ -1,256 +1,255 @@
-import { useForm } from "react-hook-form";
-import { KInputTable } from "src/components/KInput/KInputTable";
-import jsPDF from "jspdf";
-import autoTable, { HAlignType, RowInput } from "jspdf-autotable";
-import { useEffect, useState } from "react";
-import logo from "../../assets/logo.jpg"; 
-import { KInputArea } from "src/components/KInput/KInputArea";
-import { KInputUpload } from "src/components/KInput/KInputUpload";
-import Chart, { ChartTypeRegistry } from "chart.js/auto";
+import { useForm } from 'react-hook-form'
+import { KInputTable } from 'src/components/KInput/KInputTable'
+import jsPDF from 'jspdf'
+import autoTable, { HAlignType, RowInput } from 'jspdf-autotable'
+import { useEffect, useState } from 'react'
+import logo from '../../assets/logo.jpg'
+import { KInputArea } from 'src/components/KInput/KInputArea'
+import { KInputUpload } from 'src/components/KInput/KInputUpload'
+import Chart, { ChartTypeRegistry } from 'chart.js/auto'
 
 export const Tabla = (): JSX.Element => {
   const [data, setData] = useState([
-    { tiempo: "0:00", hora: "12:00 AM", slump: '', tc: "", ta: "", operador: "" },
-    { tiempo: "0:30", hora: "12:30 AM", slump: "", tc: "", ta: "", operador: "" },
-    { tiempo: "1:00", hora: "1:00 AM", slump: "", tc: "", ta: "", operador: "" },
-    { tiempo: "1:30", hora: "1:30 AM", slump: "", tc: "", ta: "", operador: "" },
-    { tiempo: "2:00", hora: "2:00 AM", slump: "", tc: "", ta: "", operador: "" },
-    { tiempo: "2:30", hora: "2:30 AM", slump: "", tc: "", ta: "", operador: "" },
-    { tiempo: "3:00", hora: "3:00 AM", slump: "", tc: "", ta: "", operador: "" },
-  ]);
+    { tiempo: '0:00', hora: '12:00 AM', slump: '', tc: '', ta: '', operador: '' },
+    { tiempo: '0:30', hora: '12:30 AM', slump: '', tc: '', ta: '', operador: '' },
+    { tiempo: '1:00', hora: '1:00 AM', slump: '', tc: '', ta: '', operador: '' },
+    { tiempo: '1:30', hora: '1:30 AM', slump: '', tc: '', ta: '', operador: '' },
+    { tiempo: '2:00', hora: '2:00 AM', slump: '', tc: '', ta: '', operador: '' },
+    { tiempo: '2:30', hora: '2:30 AM', slump: '', tc: '', ta: '', operador: '' },
+    { tiempo: '3:00', hora: '3:00 AM', slump: '', tc: '', ta: '', operador: '' }
+  ])
 
-  const [file, setFile] = useState<File|null>(null);
+  const [file, setFile] = useState<File | null>(null)
 
-const { register, handleSubmit, formState: { errors }} = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm()
 
-const onSubmit = (formData: any) => {
-  generatePDF(formData)
-}
-
-const readFileAsBase64 = (file: File): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-    reader.readAsDataURL(file);
-  });
-};
-
-const generatePDF = async (formData: any) => {
-  const fecha = new Date();
-  const formatoFecha = fecha.toLocaleDateString("es-ES", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-  const fechaActual = new Date().toLocaleDateString("es-ES");
-
-  const doc = new jsPDF();
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const pageHeight = doc.internal.pageSize.height;
-
-  const tableHeadHeaders = [
-    [
-      { content: "", rowSpan: 3, styles: { halign: "center" } },
-      "SOQUIMIC S.A.C.",
-      "CÓDIGO",
-      "AVT-0001",
-    ],
-    [
-      { content: "ACTA DE VISITA TÉCNICA", rowSpan: 2 },
-      "VERSIÓN",
-      "1",
-    ],
-    ["FECHA", fechaActual],
-  ];
-
-  const tableHeadRows = [
-    [
-      { content: "FECHA", colSpan: 1 },
-      { content: fechaActual, colSpan: 3, styles: { halign: "center" } },
-    ],
-    [
-      { content: "CLIENTE (S)", colSpan: 1 },
-      { content: "SOQUIMIC", colSpan: 3, styles: { halign: "center" } },
-    ],
-    [
-      { content: "PROYECTO (S)", colSpan: 1 },
-      { content: "SOQUIMIC", colSpan: 3, styles: { halign: "center" } },
-    ],
-    [
-      { content: "LUGAR (DEPART. – PROVINCIA)", colSpan: 1 },
-      { content: "LIMA-LURIN", colSpan: 3, styles: { halign: "center" } },
-    ],
-    [
-      { content: "PERSONAS CONTACTADAS (TELEF.)", colSpan: 1 },
-      { content: "", colSpan: 3, styles: { halign: "center" } },
-    ],
-    [
-      { content: "ASESOR (ES) TÉCNICO (S)", colSpan: 1 },
-      { content: "LUIS ARIMANA", colSpan: 3, styles: { halign: "center" } },
-    ],
-  ];
-
-  autoTable(doc, {
-    startY: 10,
-    head: tableHeadHeaders as RowInput[],
-    body: tableHeadRows.map((row) =>
-      row.map((cell) => ({
-        ...cell,
-        styles: cell.styles
-          ? { ...cell.styles, halign: cell.styles.halign as HAlignType }
-          : undefined,
-      }))
-    ),
-    theme: "grid",
-    styles: {
-      fontSize: 10,
-      cellPadding: 2,
-      lineColor: [0, 0, 0],
-      lineWidth: 0.1,
-    },
-    headStyles: {
-      fillColor: [255, 255, 255],
-      textColor: [0, 0, 0],
-      lineColor: [0, 0, 0],
-      lineWidth: 0.1,
-      valign: "middle",
-      halign: "center",
-    },
-    columnStyles: {
-      0: { cellWidth: 50 },
-    },
-    didDrawCell: (data) => {
-      if (data.section === "head" && data.row.index === 0 && data.column.index === 0) {
-        doc.addImage(logo, "JPG", data.cell.x + 2, data.cell.y + 2, 40, 15);
-      }
-    },
-  });
-
-  const tableHeaders = [
-    [
-      { content: "DISEÑOS DE PLANTA LURIN", colSpan: 3, styles: { halign: "center" } },
-    ],
-    [
-      { content: "Parámetro", rowSpan: 2, colSpan: 1 },
-      { content: "Unidad", rowSpan: 2, colSpan: 1 },
-      { content: `${formatoFecha}`, colSpan: 1, styles: { halign: "center" } },
-    ],
-    [
-      { content: "Prb. N° 01", styles: { fontSize: 10, halign: "center" } },
-    ],
-  ];
-
-  const tableRows = data.map((row, index) => [
-    `Slump a 0${row.tiempo} horas`,
-    "Pulg.",
-    formData[`slump${index}`] || "",
-  ]);
-
-  autoTable(doc, {
-    startY: (doc as any).lastAutoTable.finalY + 10,
-    head: tableHeaders as RowInput[],
-    body: tableRows,
-    theme: "grid",
-    styles: {
-      fontSize: 10,
-      cellPadding: 2,
-      lineColor: [0, 0, 0],
-      lineWidth: 0.1,
-    },
-    headStyles: {
-      fillColor: [229, 231, 235],
-      textColor: [0, 0, 0],
-      lineColor: [0, 0, 0],
-      lineWidth: 0.1,
-      valign: "middle",
-      halign: "center",
-    },
-  });
-
-  const commentario = formData.comment;
-  const maxWidth = pageWidth - 20;
-  const fontSize = 10;
-  doc.setFontSize(fontSize);
-
-  const lines = doc.splitTextToSize(commentario, maxWidth);
-  const lineHeight = fontSize * 0.60; // Más compacto
-  let currentY = (doc as any).lastAutoTable?.finalY + 10 || 10;
-
-  lines.forEach((line: string) => {
-    if (currentY + lineHeight > pageHeight - 20) {
-      doc.addPage();
-      currentY = 10;
-    }
-    doc.text(line, 10, currentY);
-    currentY += lineHeight;
-  });
-
-  doc.setFontSize(16);
-  const title1 = "PANEL FOTOGRÁFICO";
-  const title1Width = doc.getTextWidth(title1);
-
-  if (currentY + 20 > pageHeight) {
-    doc.addPage();
-    currentY = 10;
+  const onSubmit = (formData: any) => {
+    generatePDF(formData)
   }
 
-  doc.text(title1, (pageWidth - title1Width) / 2, currentY + 10);
-  currentY += 20;
+  const readFileAsBase64 = async (file: File): Promise<string> => {
+    return await new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => { resolve(reader.result as string) }
+      reader.onerror = (error) => { reject(error) }
+      reader.readAsDataURL(file)
+    })
+  }
 
-  if (file) {
-    try {
-      const imgData = await readFileAsBase64(file);
+  const generatePDF = async (formData: any) => {
+    const fecha = new Date()
+    const formatoFecha = fecha.toLocaleDateString('es-ES', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+    const fechaActual = new Date().toLocaleDateString('es-ES')
 
-      const image = new Image();
-      image.src = imgData;
+    const doc = new jsPDF()
+    const pageWidth = doc.internal.pageSize.getWidth()
+    const pageHeight = doc.internal.pageSize.height
 
-      await new Promise((resolve, reject) => {
-        image.onload = resolve;
-        image.onerror = reject;
-      });
+    const tableHeadHeaders = [
+      [
+        { content: '', rowSpan: 3, styles: { halign: 'center' } },
+        'SOQUIMIC S.A.C.',
+        'CÓDIGO',
+        'AVT-0001'
+      ],
+      [
+        { content: 'ACTA DE VISITA TÉCNICA', rowSpan: 2 },
+        'VERSIÓN',
+        '1'
+      ],
+      ['FECHA', fechaActual]
+    ]
 
-      const originalWidth = image.width;
-      const originalHeight = image.height;
+    const tableHeadRows = [
+      [
+        { content: 'FECHA', colSpan: 1 },
+        { content: fechaActual, colSpan: 3, styles: { halign: 'center' } }
+      ],
+      [
+        { content: 'CLIENTE (S)', colSpan: 1 },
+        { content: 'SOQUIMIC', colSpan: 3, styles: { halign: 'center' } }
+      ],
+      [
+        { content: 'PROYECTO (S)', colSpan: 1 },
+        { content: 'SOQUIMIC', colSpan: 3, styles: { halign: 'center' } }
+      ],
+      [
+        { content: 'LUGAR (DEPART. – PROVINCIA)', colSpan: 1 },
+        { content: 'LIMA-LURIN', colSpan: 3, styles: { halign: 'center' } }
+      ],
+      [
+        { content: 'PERSONAS CONTACTADAS (TELEF.)', colSpan: 1 },
+        { content: '', colSpan: 3, styles: { halign: 'center' } }
+      ],
+      [
+        { content: 'ASESOR (ES) TÉCNICO (S)', colSpan: 1 },
+        { content: 'LUIS ARIMANA', colSpan: 3, styles: { halign: 'center' } }
+      ]
+    ]
 
-      const maxWidth = 80;
-      const maxHeight = 80;
-      let width = originalWidth;
-      let height = originalHeight;
-
-      if (width > maxWidth || height > maxHeight) {
-        const aspectRatio = width / height;
-
-        if (width > height) {
-          width = maxWidth;
-          height = maxWidth / aspectRatio;
-        } else {
-          height = maxHeight;
-          width = maxHeight * aspectRatio;
+    autoTable(doc, {
+      startY: 10,
+      head: tableHeadHeaders as RowInput[],
+      body: tableHeadRows.map((row) =>
+        row.map((cell) => ({
+          ...cell,
+          styles: (cell.styles != null)
+            ? { ...cell.styles, halign: cell.styles.halign as HAlignType }
+            : undefined
+        }))
+      ),
+      theme: 'grid',
+      styles: {
+        fontSize: 10,
+        cellPadding: 2,
+        lineColor: [0, 0, 0],
+        lineWidth: 0.1
+      },
+      headStyles: {
+        fillColor: [255, 255, 255],
+        textColor: [0, 0, 0],
+        lineColor: [0, 0, 0],
+        lineWidth: 0.1,
+        valign: 'middle',
+        halign: 'center'
+      },
+      columnStyles: {
+        0: { cellWidth: 50 }
+      },
+      didDrawCell: (data) => {
+        if (data.section === 'head' && data.row.index === 0 && data.column.index === 0) {
+          doc.addImage(logo, 'JPG', data.cell.x + 2, data.cell.y + 2, 40, 15)
         }
       }
+    })
 
-      if (currentY + height > pageHeight - 20) {
-        doc.addPage();
-        currentY = 10;
+    const tableHeaders = [
+      [
+        { content: 'DISEÑOS DE PLANTA LURIN', colSpan: 3, styles: { halign: 'center' } }
+      ],
+      [
+        { content: 'Parámetro', rowSpan: 2, colSpan: 1 },
+        { content: 'Unidad', rowSpan: 2, colSpan: 1 },
+        { content: `${formatoFecha}`, colSpan: 1, styles: { halign: 'center' } }
+      ],
+      [
+        { content: 'Prb. N° 01', styles: { fontSize: 10, halign: 'center' } }
+      ]
+    ]
+
+    const tableRows = data.map((row, index) => [
+    `Slump a 0${row.tiempo} horas`,
+    'Pulg.',
+    formData[`slump${index}`] || ''
+    ])
+
+    autoTable(doc, {
+      startY: (doc as any).lastAutoTable.finalY + 10,
+      head: tableHeaders as RowInput[],
+      body: tableRows,
+      theme: 'grid',
+      styles: {
+        fontSize: 10,
+        cellPadding: 2,
+        lineColor: [0, 0, 0],
+        lineWidth: 0.1
+      },
+      headStyles: {
+        fillColor: [229, 231, 235],
+        textColor: [0, 0, 0],
+        lineColor: [0, 0, 0],
+        lineWidth: 0.1,
+        valign: 'middle',
+        halign: 'center'
       }
+    })
 
-      doc.addImage(imgData, "JPEG", 10, currentY, width, height);
-    } catch (error) {
-      console.error("Error al cargar la imagen:", error);
+    const commentario = formData.comment
+    const maxWidth = pageWidth - 20
+    const fontSize = 10
+    doc.setFontSize(fontSize)
+
+    const lines = doc.splitTextToSize(commentario, maxWidth)
+    const lineHeight = fontSize * 0.60 // Más compacto
+    let currentY = (doc as any).lastAutoTable?.finalY + 10 || 10
+
+    lines.forEach((line: string) => {
+      if (currentY + lineHeight > pageHeight - 20) {
+        doc.addPage()
+        currentY = 10
+      }
+      doc.text(line, 10, currentY)
+      currentY += lineHeight
+    })
+
+    doc.setFontSize(16)
+    const title1 = 'PANEL FOTOGRÁFICO'
+    const title1Width = doc.getTextWidth(title1)
+
+    if (currentY + 20 > pageHeight) {
+      doc.addPage()
+      currentY = 10
     }
+
+    doc.text(title1, (pageWidth - title1Width) / 2, currentY + 10)
+    currentY += 20
+
+    if (file != null) {
+      try {
+        const imgData = await readFileAsBase64(file)
+
+        const image = new Image()
+        image.src = imgData
+
+        await new Promise((resolve, reject) => {
+          image.onload = resolve
+          image.onerror = reject
+        })
+
+        const originalWidth = image.width
+        const originalHeight = image.height
+
+        const maxWidth = 80
+        const maxHeight = 80
+        let width = originalWidth
+        let height = originalHeight
+
+        if (width > maxWidth || height > maxHeight) {
+          const aspectRatio = width / height
+
+          if (width > height) {
+            width = maxWidth
+            height = maxWidth / aspectRatio
+          } else {
+            height = maxHeight
+            width = maxHeight * aspectRatio
+          }
+        }
+
+        if (currentY + height > pageHeight - 20) {
+          doc.addPage()
+          currentY = 10
+        }
+
+        doc.addImage(imgData, 'JPEG', 10, currentY, width, height)
+      } catch (error) {
+        console.error('Error al cargar la imagen:', error)
+      }
+    }
+
+    const pdfBlob = doc.output('blob')
+    const pdfUrl = URL.createObjectURL(pdfBlob)
+    window.open(pdfUrl, '_blank')
   }
 
-  const pdfBlob = doc.output("blob");
-  const pdfUrl = URL.createObjectURL(pdfBlob);
-  window.open(pdfUrl, "_blank");
-};
-
-useEffect(() => {
-  console.log(file);
-}, [file])
-
+  useEffect(() => {
+    console.log(file)
+  }, [file])
 
   return (
     <div className="">
@@ -272,11 +271,11 @@ useEffect(() => {
           <div className="text-right flex flex-row sm:flex-col">
             <p className="text-gray-700 text-left text-lg">Fecha:&nbsp;&nbsp; </p>
             <p className="text-lg font-bold text-gray-800">
-              {new Date().toLocaleDateString("es-ES", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
+              {new Date().toLocaleDateString('es-ES', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
               })}
             </p>
           </div>
@@ -313,7 +312,7 @@ useEffect(() => {
               {data.map((row, index) => (
                 <tr
                   key={index}
-                  className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}
+                  className={index % 2 === 0 ? 'bg-white' : 'bg-gray-100'}
                 >
                   <td className="border border-gray-300  py-2 text-center">
                     {row.tiempo}
@@ -325,7 +324,7 @@ useEffect(() => {
                     <td
                       className={'  w-40 md:w-60 text-center h-10'}
                     >
-                      <KInputTable type='text' label="" placeholder='' reactHookForm={{...register(`slump${index}`), defaultValue: ""}} />
+                      <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register(`slump${index}`), defaultValue: '' }} />
                     </td>
                     <td className=" w-10 md:w-20 text-center h-10">
                       Pulg.
@@ -350,13 +349,13 @@ useEffect(() => {
       <div className="max-w-4xl px-5 mt-5 mx-auto flex flex-col sm:flex-row gap-5">
         <div className="w-full sm:w-3/4 ">
           <h2 className="text-xl font-bold">Comentarios:</h2>
-          <KInputArea type='text' label="" placeholder='' reactHookForm={{...register('comment'), defaultValue: ""}} />
+          <KInputArea type='text' label="" placeholder='' reactHookForm={{ ...register('comment'), defaultValue: '' }} />
         </div>
         <div className="w-full sm:w-1/4 flex justify-center align-middle items-center">
           <KInputUpload
             label="Subir evidencia"
             accept="image/*"
-            onFileChange={(f) => f && setFile(f)}
+            onFileChange={(f) => { (f != null) && setFile(f) }}
           />
         </div>
       </div>
@@ -369,5 +368,5 @@ useEffect(() => {
       </form>
     </div>
     </div>
-  );
-};
+  )
+}
