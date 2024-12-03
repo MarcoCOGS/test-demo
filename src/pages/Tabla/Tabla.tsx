@@ -27,6 +27,68 @@ export const Tabla = (): JSX.Element => {
     generatePDF(formData)
   }
 
+  const createChartAsBase64 = async () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 800;
+    canvas.height = 400;
+  
+    const chartConfig = {
+      type: "line",
+      data: {
+        labels: ["12:00 AM", "12:30 AM", "01:00 AM", "01:30 AM", "02:00 AM"],
+        datasets: [
+          {
+            label: "33-SQM-TI-28",
+            data: [8, 7.5, 7, 6.5, 6],
+            borderColor: "blue",
+            backgroundColor: "blue",
+            tension: 0.4,
+            fill: false,
+          },
+          {
+            label: "35-SQM-HS-28",
+            data: [9, 8.5, 8, 8, 7.5],
+            borderColor: "red",
+            backgroundColor: "red",
+            tension: 0.4,
+            fill: false,
+          },
+        ],
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          legend: { display: true, position: "bottom" },
+          title: { display: true, text: "SOQUIMIC", font: { size: 16 } },
+        },
+        scales: {
+          x: { title: { display: true, text: "" } },
+          y: { title: { display: true, text: "" }, beginAtZero: true },
+        },
+      },
+    };
+  
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      throw new Error("No se pudo obtener el contexto 2D del canvas.");
+    }
+  
+    // Crear el gráfico
+    const chart = new Chart(ctx, chartConfig as any);
+  
+    // Asegurarse de que el gráfico se renderiza antes de convertirlo
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  
+    // Convertir el canvas a base64
+    const base64 = canvas.toDataURL("image/png");
+  
+    // Destruir el gráfico para liberar memoria
+    chart.destroy();
+  
+    return base64;
+  };
+  
+
   const readFileAsBase64 = async (file: File): Promise<string> => {
     return await new Promise((resolve, reject) => {
       const reader = new FileReader()
@@ -37,6 +99,14 @@ export const Tabla = (): JSX.Element => {
   }
 
   const generatePDF = async (formData: any) => {
+
+    const chartBase64 = await createChartAsBase64();
+
+    if (!chartBase64) {
+      console.error("Error al generar el gráfico.");
+      return;
+    }
+
     const fecha = new Date()
     const formatoFecha = fecha.toLocaleDateString('es-ES', {
       weekday: 'long',
@@ -241,6 +311,13 @@ export const Tabla = (): JSX.Element => {
         console.error('Error al cargar la imagen:', error)
       }
     }
+  
+    if (currentY + 100 > pageHeight) {
+      doc.addPage();
+      currentY = 10;
+    }
+  
+    doc.addImage(chartBase64, "PNG", 10, currentY, 190, 90);
 
     const pdfBlob = doc.output('blob')
     const pdfUrl = URL.createObjectURL(pdfBlob)
