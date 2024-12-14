@@ -219,46 +219,110 @@ export const Tabla = (): JSX.Element => {
 
     const tablenewRows = [
       [
-        { content: 'Cemento SOL T-I', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA1', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA1', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'CEMENTO', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('cemento')) / Number(watch('tanda')))
+        ? ((Number(watch('cemento')) / Number(watch('tanda')) || 0).toFixed(2))
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('cemento')) / Number(watch('tanda')))
+        ? ((Number(watch('cemento')*5) / Number(watch('tanda')) || 0).toFixed(2))
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('cemento')) / Number(watch('tanda')))
+        ? ((Number(watch('cemento')*8) / Number(watch('tanda')) || 0).toFixed(2))
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
       ],
       [
-        { content: 'Agua', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'AGUA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'Lt', colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('agua')) / Number(watch('tanda')))
+        ? (Number(watch('agua')) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('agua')) / Number(watch('tanda')))
+        ? (Number(watch('agua')*5) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('agua')) / Number(watch('tanda')))
+        ? (Number(watch('agua')*8) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
       ],
       [
-        { content: 'Ag. Fino RICHARD', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'ARENA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+        ? ((Number(watch('arena')) / Number(watch('tanda')) || 0).toFixed(2))
+        : "0.00"}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+        ? ((Number(watch('arena')*5) / Number(watch('tanda')) || 0).toFixed(2))
+        : "0.00"}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+        ? ((Number(watch('arena')*8) / Number(watch('tanda')) || 0).toFixed(2))
+        : "0.00"}`, colSpan: 1, styles: { halign: 'center' } },
       ],
       [
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'PIEDRA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+        ? (Number(watch('piedra')) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+        ? (Number(watch('piedra')*5) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+        ? (Number(watch('piedra')*8) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
       ],
       [
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: '1200', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('n1200')) / Number(watch('tanda')))
+        ? (Number(watch('n1200')) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('n1200')) / Number(watch('tanda')))
+        ? (Number(watch('n1200')*5) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('n1200')) / Number(watch('tanda')))
+        ? (Number(watch('n1200')*8) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
       ],
       [
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
-        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'RF 25', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('rf25')) / Number(watch('tanda')))
+        ? (Number(watch('rf25')) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('rf25')) / Number(watch('tanda')))
+        ? (Number(watch('rf25')*5) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('rf25')) / Number(watch('tanda')))
+        ? (Number(watch('rf25')*8) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+      ],
+      [
+        { content: 'Agregados Total', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
+        { content: `${(
+          (Number.isFinite(Number(watch('cemento')) / Number(watch('tanda'))) ? (Number(watch('cemento')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('agua')) / Number(watch('tanda'))) ? (Number(watch('agua')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('arena')) / Number(watch('tanda'))) ? (Number(watch('arena')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0)
+        ).toFixed(2)}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${(
+          ((Number.isFinite(Number(watch('cemento')) / Number(watch('tanda'))) ? (Number(watch('cemento')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('agua')) / Number(watch('tanda'))) ? (Number(watch('agua')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('arena')) / Number(watch('tanda'))) ? (Number(watch('arena')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0))*5
+        ).toFixed(2)}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${(
+          ((Number.isFinite(Number(watch('cemento')) / Number(watch('tanda'))) ? (Number(watch('cemento')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('agua')) / Number(watch('tanda'))) ? (Number(watch('agua')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('arena')) / Number(watch('tanda'))) ? (Number(watch('arena')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0))*8
+        ).toFixed(2)}`, colSpan: 1, styles: { halign: 'center' } },
       ]
     ]
 
@@ -528,14 +592,14 @@ export const Tabla = (): JSX.Element => {
                     CEMENTO
                   </td>
                   <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
-                    <KInputTable type='number' label="" placeholder='' reactHookForm={{ ...register('cemento'), defaultValue: '' }} />
+                    <KInputTable type='string' label="" placeholder='' reactHookForm={{ ...register('cemento'), defaultValue: '' }} />
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
-                  {
-  Number.isFinite(Number(watch('cemento')) / Number(watch('tanda')))
-    ? ((Number(watch('cemento')) / Number(watch('tanda')) || 0).toFixed(2))
-    : '0.00'
-}
+                    {
+                      Number.isFinite(Number(watch('cemento')) / Number(watch('tanda')))
+                        ? ((Number(watch('cemento')) / Number(watch('tanda')) || 0).toFixed(2))
+                        : '0.00'
+                    }
                   </td>
                   <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
                     A/C
@@ -552,14 +616,14 @@ export const Tabla = (): JSX.Element => {
                     AGUA
                   </td>
                   <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
-                    <KInputTable type='number' label="" placeholder='' reactHookForm={{ ...register('agua'), defaultValue: '' }} />
+                    <KInputTable type='string' label="" placeholder='' reactHookForm={{ ...register('agua'), defaultValue: '' }} />
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
                   {
-  Number.isFinite(Number(watch('agua')) / Number(watch('tanda')))
-    ? (Number(watch('agua')) / Number(watch('tanda')) || 0).toFixed(2)
-    : '0.00'
-}
+                    Number.isFinite(Number(watch('agua')) / Number(watch('tanda')))
+                      ? (Number(watch('agua')) / Number(watch('tanda')) || 0).toFixed(2)
+                      : '0.00'
+                  }
                   </td>
                   <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
                     TOTAL.AG
