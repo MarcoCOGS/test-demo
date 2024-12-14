@@ -7,6 +7,7 @@ import logo from '../../assets/logo.jpg'
 import { KInputArea } from 'src/components/KInput/KInputArea'
 import { KInputUpload } from 'src/components/KInput/KInputUpload'
 import Chart, { ChartTypeRegistry } from 'chart.js/auto'
+import Plotly, { Layout } from "plotly.js-dist-min";
 
 export const Tabla = (): JSX.Element => {
   const [data, setData] = useState([
@@ -20,74 +21,81 @@ export const Tabla = (): JSX.Element => {
   ])
 
   const [file, setFile] = useState<File | null>(null)
+  const [file1, setFile1] = useState<File | null>(null)
 
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, watch, formState: { errors } } = useForm()
 
   const onSubmit = (formData: any) => {
     generatePDF(formData)
   }
 
-  const createChartAsBase64 = async () => {
-    const canvas = document.createElement("canvas");
-    canvas.width = 800;
-    canvas.height = 400;
-  
-    const chartConfig = {
-      type: "line",
-      data: {
-        labels: ["12:00 AM", "12:30 AM", "01:00 AM", "01:30 AM", "02:00 AM"],
-        datasets: [
-          {
-            label: "33-SQM-TI-28",
-            data: [8, 7.5, 7, 6.5, 6],
-            borderColor: "blue",
-            backgroundColor: "blue",
-            tension: 0.4,
-            fill: false,
-          },
-          {
-            label: "35-SQM-HS-28",
-            data: [9, 8.5, 8, 8, 7.5],
-            borderColor: "red",
-            backgroundColor: "red",
-            tension: 0.4,
-            fill: false,
-          },
+  const createChartAsBase64 = async (formData: any) => {
+    const data = [
+      {
+        x: ["", "00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", ""],
+        y: [
+          null,
+          Number(formData.slump0),
+          Number(formData.slump1),
+          Number(formData.slump2),
+          Number(formData.slump3),
+          Number(formData.slump4),
+          Number(formData.slump5),
+          Number(formData.slump6),
+          null
         ],
+        mode: "lines+markers",
+        name: "33-SQM-TI-28",
+        line: {
+          color: "red",
+          shape: "linear",
+        },
+        marker: {
+          size: 8,
+          color: "red",
+        },
       },
-      options: {
-        responsive: false,
-        plugins: {
-          legend: { display: true, position: "bottom" },
-          title: { display: true, text: "SOQUIMIC", font: { size: 16 } },
+    ];
+  
+    const layout = {
+      title: {
+        text: "SOQUIMIC",
+        font: {
+          size: 16,
         },
-        scales: {
-          x: { title: { display: true, text: "" } },
-          y: { title: { display: true, text: "" }, beginAtZero: true },
+      },
+      xaxis: {
+        title: {
+          text: "",
         },
+        showgrid: false,
+      },
+      yaxis: {
+        title: {
+          text: "",
+        },
+        range: [0, 10],
+        dtick: 1,
+        showgrid: true,
+      },
+      showlegend: true,
+      legend: {
+        orientation: "h",
+        x: 0.5,
+        xanchor: "center",
+        y: -0.3,
       },
     };
   
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      throw new Error("No se pudo obtener el contexto 2D del canvas.");
-    }
-  
-    // Crear el gráfico
-    const chart = new Chart(ctx, chartConfig as any);
-  
-    // Asegurarse de que el gráfico se renderiza antes de convertirlo
+    const canvas = document.createElement("div");
+    await Plotly.newPlot(canvas, data, layout as Partial<Layout>, { responsive: false });
+
     await new Promise((resolve) => setTimeout(resolve, 500));
-  
-    // Convertir el canvas a base64
-    const base64 = canvas.toDataURL("image/png");
-  
-    // Destruir el gráfico para liberar memoria
-    chart.destroy();
+
+    const base64 = await Plotly.toImage(canvas, { format: "png", width: 800, height: 400 });
   
     return base64;
   };
-  
 
   const readFileAsBase64 = async (file: File): Promise<string> => {
     return await new Promise((resolve, reject) => {
@@ -100,7 +108,7 @@ export const Tabla = (): JSX.Element => {
 
   const generatePDF = async (formData: any) => {
 
-    const chartBase64 = await createChartAsBase64();
+    const chartBase64 = await createChartAsBase64(formData);
 
     if (!chartBase64) {
       console.error("Error al generar el gráfico.");
@@ -198,6 +206,99 @@ export const Tabla = (): JSX.Element => {
       }
     })
 
+    // aaaaaaaaaaaaaaaaaaaaa
+    const tablenewHeaders = [
+      [
+        { content: 'Volumen', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'x³', colSpan: 1, styles: { halign: 'center' } },
+        { content: '1.00', colSpan: 1, styles: { halign: 'center' } },
+        { content: '5.00', colSpan: 1, styles: { halign: 'center' } },
+        { content: '8.00', colSpan: 1, styles: { halign: 'center' } },
+      ]
+    ]
+
+    const tablenewRows = [
+      [
+        { content: 'Cemento SOL T-I', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA1', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA1', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+      ],
+      [
+        { content: 'Agua', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+      ],
+      [
+        { content: 'Ag. Fino RICHARD', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+      ],
+      [
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+      ],
+      [
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+      ],
+      [
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'FECHA', colSpan: 1, styles: { halign: 'center' } },
+      ]
+    ]
+
+    autoTable(doc, {
+      startY: (doc as any).lastAutoTable.finalY + 10,
+      head: tablenewHeaders as RowInput[],
+      body: tablenewRows.map((row) =>
+        row.map((cell) => ({
+          ...cell,
+          styles: (cell.styles != null)
+            ? { ...cell.styles, halign: cell.styles.halign as HAlignType }
+            : undefined
+        }))
+      ),
+      theme: 'grid',
+      styles: {
+        fontSize: 10,
+        cellPadding: 2,
+        lineColor: [0, 0, 0],
+        lineWidth: 0.1
+      },
+      headStyles: {
+        fillColor: [255, 255, 255],
+        textColor: [0, 0, 0],
+        lineColor: [0, 0, 0],
+        lineWidth: 0.1,
+        valign: 'middle',
+        halign: 'center'
+      },
+      columnStyles: {
+        0: { cellWidth: 50 }
+      },
+      // didDrawCell: (data) => {
+      //   if (data.section === 'head' && data.row.index === 0 && data.column.index === 0) {
+      //     doc.addImage(logo, 'JPG', data.cell.x + 2, data.cell.y + 2, 40, 15)
+      //   }
+      // }
+    })
+    // aaaaaaaaaaaaaaaaaaaaa
+
     const tableHeaders = [
       [
         { content: 'DISEÑOS DE PLANTA LURIN', colSpan: 3, styles: { halign: 'center' } }
@@ -249,25 +350,22 @@ export const Tabla = (): JSX.Element => {
     let currentY = (doc as any).lastAutoTable?.finalY + 10 || 10
 
     lines.forEach((line: string) => {
-      if (currentY + lineHeight > pageHeight - 20) {
-        doc.addPage()
-        currentY = 10
-      }
+      // if (currentY + lineHeight > pageHeight - 20) {
+      //   doc.addPage()
+      //   currentY = 10
+      // }
       doc.text(line, 10, currentY)
       currentY += lineHeight
     })
 
-    doc.setFontSize(16)
-    const title1 = 'PANEL FOTOGRÁFICO'
-    const title1Width = doc.getTextWidth(title1)
+    doc.addPage(); // Siempre fuerza un salto de página
+    currentY = 10; // Reinicia la posición vertical
 
-    if (currentY + 20 > pageHeight) {
-      doc.addPage()
-      currentY = 10
-    }
-
-    doc.text(title1, (pageWidth - title1Width) / 2, currentY + 10)
-    currentY += 20
+    doc.setFontSize(16);
+    const title1 = 'PANEL FOTOGRÁFICO';
+    const title1Width = doc.getTextWidth(title1);
+    doc.text(title1, (pageWidth - title1Width) / 2, currentY);
+    currentY += 20;
     let height = 0;
     if (file != null) {
       try {
@@ -305,20 +403,74 @@ export const Tabla = (): JSX.Element => {
           doc.addPage()
           currentY = 10
         }
-
-        doc.addImage(imgData, 'JPEG', 10, currentY, width, height)
+        if(file1){
+          const imageX = (pageWidth - 40) / 2;
+          doc.addImage(imgData, 'JPEG', 20, currentY, width, height)
+        }else{
+          const imageX = (pageWidth - 90) / 2;
+          doc.addImage(imgData, 'JPEG', imageX, currentY, width, height)
+        }
+        
+        
       } catch (error) {
         console.error('Error al cargar la imagen:', error)
       }
     }
-  
+    if (file1 != null) {
+      try {
+        const imgData = await readFileAsBase64(file1)
+
+        const image = new Image()
+        image.src = imgData
+
+        await new Promise((resolve, reject) => {
+          image.onload = resolve
+          image.onerror = reject
+        })
+
+        const originalWidth = image.width
+        const originalHeight = image.height
+
+        const maxWidth = 80
+        const maxHeight = 80
+        let width = originalWidth
+        height = originalHeight
+
+        if (width > maxWidth || height > maxHeight) {
+          const aspectRatio = width / height
+
+          if (width > height) {
+            width = maxWidth
+            height = maxWidth / aspectRatio
+          } else {
+            height = maxHeight
+            width = maxHeight * aspectRatio
+          }
+        }
+
+        if (currentY + height > pageHeight - 20) {
+          doc.addPage()
+          currentY = 10
+        }
+        if(file){
+          const imageX = (pageWidth + 20) / 2;
+          doc.addImage(imgData, 'JPEG', imageX, currentY, width, height)
+        }else{
+          const imageX = (pageWidth - 80) / 2;
+          doc.addImage(imgData, 'JPEG', imageX, currentY, width, height)
+        }
+      } catch (error) {
+        console.error('Error al cargar la imagen:', error)
+      }
+    }
     currentY += height + 10; // Deja un margen de 10 después de la imagen
 
     if (currentY + 90 > pageHeight - 20) { // Si la gráfica no cabe
       doc.addPage();
       currentY = 10;
     }
-    doc.addImage(chartBase64, "PNG", 10, currentY, 190, 90);
+    const graficX = (pageWidth - 190) / 2;
+    doc.addImage(chartBase64, "PNG", graficX, currentY, 190, 90);
 
     const pdfBlob = doc.output('blob')
     const pdfUrl = URL.createObjectURL(pdfBlob)
@@ -360,12 +512,308 @@ export const Tabla = (): JSX.Element => {
         </div>
       </div>
 
-      <h1 className="text-2xl md:text-4xl  mt-10 font-bold  text-gray-800 text-center">
-      Desarrollo de Mantención
-    </h1>
-
     <div className="p-1 md:p-4 flex w-screen  justify-center px-1 md:px-8 ">
     <form action="" onSubmit={handleSubmit(onSubmit)} autoComplete="false" className="w-full">
+    <div className="border mx-auto rounded-lg max-w-7xl overflow-hidden shadow-md overflow-x-auto">
+        <div className="bg-gray-200 text-center p-2 font-bold">
+          <div>{' '} &nbsp; &nbsp;</div>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="min-w-full table-auto border-collapse border border-gray-300 text-sm">
+            <tbody>
+                <tr
+                  className={'bg-white'}
+                >
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
+                    CEMENTO
+                  </td>
+                  <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
+                    <KInputTable type='number' label="" placeholder='' reactHookForm={{ ...register('cemento'), defaultValue: '' }} />
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {
+  Number.isFinite(Number(watch('cemento')) / Number(watch('tanda')))
+    ? ((Number(watch('cemento')) / Number(watch('tanda')) || 0).toFixed(2))
+    : '0.00'
+}
+                  </td>
+                  <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
+                    A/C
+                  </td>
+                  <td className="border min-w-[150px] w-40 max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {watch('agua') && watch('cemento') ? (watch('agua') / watch('cemento')).toFixed(2) : '0.00'}
+                  </td>
+                </tr>
+
+                <tr
+                  className={'bg-white'}
+                >
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
+                    AGUA
+                  </td>
+                  <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
+                    <KInputTable type='number' label="" placeholder='' reactHookForm={{ ...register('agua'), defaultValue: '' }} />
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {
+  Number.isFinite(Number(watch('agua')) / Number(watch('tanda')))
+    ? (Number(watch('agua')) / Number(watch('tanda')) || 0).toFixed(2)
+    : '0.00'
+}
+                  </td>
+                  <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
+                    TOTAL.AG
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {(
+                      (Number.isFinite(Number(watch('arena')) / Number(watch('tanda'))) 
+                        ? (Number(watch('arena')) / Number(watch('tanda')) || 0) 
+                        : 0) 
+                      +
+                      (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) 
+                        ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) 
+                        : 0)
+                    ).toFixed(2) || '0.00'}
+                  </td>
+                </tr>
+
+                <tr
+                  className={'bg-white'}
+                >
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
+                    ARENA
+                  </td>
+                  <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
+                    <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('arena'), defaultValue: '' }} />
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {
+                    Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+                      ? ((Number(watch('arena')) / Number(watch('tanda')) || 0).toFixed(2))
+                      : "0.00"
+                  }
+                  </td>
+                  <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
+                    RF. ARENA
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  { 
+  Number.isFinite(
+    100 *
+    (
+      (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+        ? (Number(watch('arena')) / Number(watch('tanda')))
+        : 0
+      ) /
+      (
+        (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+          ? (Number(watch('arena')) / Number(watch('tanda')))
+          : 0
+        ) +
+        (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+          ? (Number(watch('piedra')) / Number(watch('tanda')))
+          : 0
+        )
+      )
+    )
+  ) 
+    ? (100 *
+      (
+        (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+          ? (Number(watch('arena')) / Number(watch('tanda')))
+          : 0
+        ) /
+        (
+          (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+            ? (Number(watch('arena')) / Number(watch('tanda')))
+            : 0
+          ) +
+          (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+            ? (Number(watch('piedra')) / Number(watch('tanda')))
+            : 0
+          )
+        )
+      )
+    ).toFixed(2) 
+    : '0.00'
+}
+
+                  </td>
+                </tr>
+                <tr
+                  className={'bg-white'}
+                >
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
+                    PIEDRA
+                  </td>
+                  <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
+                    <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('piedra'), defaultValue: '' }} />
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {
+  Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+    ? (Number(watch('piedra')) / Number(watch('tanda')) || 0).toFixed(2)
+    : '0.00'
+}
+
+                  </td>
+                  <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
+                    RF. PIEDRA
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  { 
+  Number.isFinite(
+    100 *
+    (
+      (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+        ? (Number(watch('piedra')) / Number(watch('tanda')))
+        : 0
+      ) /
+      (
+        (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+          ? (Number(watch('arena')) / Number(watch('tanda')))
+          : 0
+        ) +
+        (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+          ? (Number(watch('piedra')) / Number(watch('tanda')))
+          : 0
+        )
+      )
+    )
+  ) 
+    ? (
+      100 *
+      (
+        (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+          ? (Number(watch('piedra')) / Number(watch('tanda')))
+          : 0
+        ) /
+        (
+          (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+            ? (Number(watch('arena')) / Number(watch('tanda')))
+            : 0
+          ) +
+          (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+            ? (Number(watch('piedra')) / Number(watch('tanda')))
+            : 0
+          )
+        )
+      )
+    ).toFixed(2) 
+    : '0.00'
+}
+
+                  </td>
+                </tr>
+                <tr
+                  className={'bg-white'}
+                >
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
+                    1200
+                  </td>
+                  <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
+                    <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('n1200'), defaultValue: '' }} />
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {
+  Number.isFinite(Number(watch('n1200')) / Number(watch('tanda')))
+    ? (Number(watch('n1200')) / Number(watch('tanda')) || 0).toFixed(2)
+    : '0.00'
+}
+
+                  </td>
+                  <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
+                    Aditivo 1200
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {(
+                    100 * (Number(watch('n1200')) / Number(watch('tanda')) || 0) /
+                    (Number(watch('cemento')) / Number(watch('tanda')) || 1)
+                  ).toFixed(2)}
+                  </td>
+                </tr>
+                <tr
+                  className={'bg-white'}
+                >
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
+                    RF 25
+                  </td>
+                  <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
+                    <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('rf25'), defaultValue: '' }} />
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {
+  Number.isFinite(Number(watch('rf25')) / Number(watch('tanda')))
+    ? (Number(watch('rf25')) / Number(watch('tanda')) || 0).toFixed(2)
+    : '0.00'
+}
+
+                  </td>
+                  <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
+                    Aditivo RF 25
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  { 
+  Number.isFinite(
+    100 * (Number(watch('rf25')) / Number(watch('tanda'))) /
+    (Number(watch('cemento')) / Number(watch('tanda')) || 1)
+  )
+    ? (
+      100 * (Number(watch('rf25')) / Number(watch('tanda'))) /
+      (Number(watch('cemento')) / Number(watch('tanda')) || 1)
+    ).toFixed(2)
+    : "0.00"
+}
+
+                  </td>
+                </tr>
+                <tr
+                  className={'bg-white'}
+                >
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
+                    TANDA
+                  </td>
+                  <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
+                    <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('tanda'), defaultValue: '' }} />
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  { 
+  (
+    (Number.isFinite(Number(watch('cemento')) / Number(watch('tanda'))) ? (Number(watch('cemento')) / Number(watch('tanda')) || 0) : 0) +
+    (Number.isFinite(Number(watch('agua')) / Number(watch('tanda'))) ? (Number(watch('agua')) / Number(watch('tanda')) || 0) : 0) +
+    (Number.isFinite(Number(watch('arena')) / Number(watch('tanda'))) ? (Number(watch('arena')) / Number(watch('tanda')) || 0) : 0) +
+    (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
+    (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
+    (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0)
+  ).toFixed(2)
+}
+
+                  </td>
+                  <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
+                    TOTAL
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {(
+  (100 * (Number(watch('n1200')) / Number(watch('tanda')) || 0) / 
+  (Number(watch('cemento')) / Number(watch('tanda')) || 1)) +
+  (100 * (Number(watch('rf25')) / Number(watch('tanda')) || 0) /
+  (Number(watch('cemento')) / Number(watch('tanda')) || 1))
+).toFixed(2)}
+
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <br/>
+      <br/>
+      <h1 className="text-2xl md:text-4xl  mt-10 font-bold  text-gray-800 text-center">
+      Desarrollo de Mantención
+      </h1>
+      <br/>
       <div className="border mx-auto rounded-lg max-w-7xl overflow-hidden shadow-md overflow-x-auto">
         <div className="bg-gray-200 text-center p-2 font-bold">
           <div>Mantención del Slump</div>
@@ -398,9 +846,9 @@ export const Tabla = (): JSX.Element => {
                   <td className="border border-gray-300 min-w-[80px] mx-4 px-2 py-2 text-center">
                     {row.hora}
                   </td>
-                  <td className={'border border-gray-300 min-w-[150px] md:w-80 text-center h-10'}>
+                  <td className={'border border-gray-300 min-w-[150px] text-center h-10'}>
                     <td
-                      className={'  w-40 md:w-60 text-center h-10'}
+                      className={'w-40 md:w-60 text-center h-10'}
                     >
                       <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register(`slump${index}`), defaultValue: '' }} />
                     </td>
@@ -424,16 +872,23 @@ export const Tabla = (): JSX.Element => {
         </div>
 
       </div>
-      <div className="max-w-4xl px-5 mt-5 mx-auto flex flex-col sm:flex-row gap-5">
-        <div className="w-full sm:w-3/4 ">
+      <div className="max-w-5xl px-5 mt-5 mx-auto flex flex-col sm:flex-row gap-5">
+        <div className="w-full sm:w-2/4 ">
           <h2 className="text-xl font-bold">Comentarios:</h2>
           <KInputArea type='text' label="" placeholder='' reactHookForm={{ ...register('comment'), defaultValue: '' }} />
         </div>
         <div className="w-full sm:w-1/4 flex justify-center align-middle items-center">
           <KInputUpload
-            label="Subir evidencia"
+            label="Subir evidencia 1"
             accept="image/*"
             onFileChange={(f) => { (f != null) && setFile(f) }}
+          />
+        </div>
+        <div className="w-full sm:w-1/4 flex justify-center align-middle items-center">
+          <KInputUpload
+            label="Subir evidencia 2"
+            accept="image/*"
+            onFileChange={(f) => { (f != null) && setFile1(f) }}
           />
         </div>
       </div>
