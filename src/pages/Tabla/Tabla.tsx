@@ -16,8 +16,8 @@ export const Tabla = (): JSX.Element => {
     { tiempo: '1:00', hora: '1:00 AM', slump: '', tc: '', ta: '', operador: '' },
     { tiempo: '1:30', hora: '1:30 AM', slump: '', tc: '', ta: '', operador: '' },
     { tiempo: '2:00', hora: '2:00 AM', slump: '', tc: '', ta: '', operador: '' },
-    { tiempo: '2:30', hora: '2:30 AM', slump: '', tc: '', ta: '', operador: '' },
-    { tiempo: '3:00', hora: '3:00 AM', slump: '', tc: '', ta: '', operador: '' }
+    // { tiempo: '2:30', hora: '2:30 AM', slump: '', tc: '', ta: '', operador: '' },
+    // { tiempo: '3:00', hora: '3:00 AM', slump: '', tc: '', ta: '', operador: '' }
   ])
 
   const [file, setFile] = useState<File | null>(null)
@@ -32,7 +32,7 @@ export const Tabla = (): JSX.Element => {
   const createChartAsBase64 = async (formData: any) => {
     const data = [
       {
-        x: ["", "00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", ""],
+        x: ["", "00:00", "00:30", "01:00", "01:30", "02:00"/*, "02:30", "03:00"*/, ""],
         y: [
           null,
           Number(formData.slump0),
@@ -40,8 +40,8 @@ export const Tabla = (): JSX.Element => {
           Number(formData.slump2),
           Number(formData.slump3),
           Number(formData.slump4),
-          Number(formData.slump5),
-          Number(formData.slump6),
+          // Number(formData.slump5),
+          // Number(formData.slump6),
           null
         ],
         mode: "lines+markers",
