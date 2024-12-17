@@ -31,6 +31,7 @@ export const KInputTable = ({
       list="autocompleteOff"
       onBlur={onBlur}
       disabled= {disabled}
+      onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()} 
       className={`text-base ${disabled ? 'bg-gray-200' : 'bg-white'} border-[1.5px] border-transparent px-3 text-black bg-transparent font-medium  flex-grow rounded-[3px] flex-1 h-full  w-full focus:border-white focus:border-[0.5px] ${customStyle}`}
       />
   </div>

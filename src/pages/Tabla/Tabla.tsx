@@ -258,6 +258,19 @@ export const Tabla = (): JSX.Element => {
         : "0.00"}`, colSpan: 1, styles: { halign: 'center' } },
       ],
       [
+        { content: 'ARENA 2', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+        ? ((Number(watch('arena2')) / Number(watch('tanda')) || 0).toFixed(2))
+        : "0.00"}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+        ? ((Number(watch('arena2')*5) / Number(watch('tanda')) || 0).toFixed(2))
+        : "0.00"}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+        ? ((Number(watch('arena2')*8) / Number(watch('tanda')) || 0).toFixed(2))
+        : "0.00"}`, colSpan: 1, styles: { halign: 'center' } },
+      ],
+      [
         { content: 'PIEDRA', colSpan: 1, styles: { halign: 'center' } },
         { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
         { content: `${Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
@@ -271,7 +284,20 @@ export const Tabla = (): JSX.Element => {
         : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
       ],
       [
-        { content: '1200', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'PIEDRA 2', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+        ? (Number(watch('piedra2')) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+        ? (Number(watch('piedra2')*5) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+        { content: `${Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+        ? (Number(watch('piedra2')*8) / Number(watch('tanda')) || 0).toFixed(2)
+        : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
+      ],
+      [
+        { content: 'Aditivo 1200', colSpan: 1, styles: { halign: 'center' } },
         { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
         { content: `${Number.isFinite(Number(watch('n1200')) / Number(watch('tanda')))
         ? (Number(watch('n1200')) / Number(watch('tanda')) || 0).toFixed(2)
@@ -284,7 +310,7 @@ export const Tabla = (): JSX.Element => {
         : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
       ],
       [
-        { content: 'RF 25', colSpan: 1, styles: { halign: 'center' } },
+        { content: 'Aditivo RF 25', colSpan: 1, styles: { halign: 'center' } },
         { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
         { content: `${Number.isFinite(Number(watch('rf25')) / Number(watch('tanda')))
         ? (Number(watch('rf25')) / Number(watch('tanda')) || 0).toFixed(2)
@@ -303,7 +329,9 @@ export const Tabla = (): JSX.Element => {
           (Number.isFinite(Number(watch('cemento')) / Number(watch('tanda'))) ? (Number(watch('cemento')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('agua')) / Number(watch('tanda'))) ? (Number(watch('agua')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('arena')) / Number(watch('tanda'))) ? (Number(watch('arena')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda'))) ? (Number(watch('arena2')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda'))) ? (Number(watch('piedra2')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0)
         ).toFixed(2)}`, colSpan: 1, styles: { halign: 'center' } },
@@ -311,7 +339,9 @@ export const Tabla = (): JSX.Element => {
           ((Number.isFinite(Number(watch('cemento')) / Number(watch('tanda'))) ? (Number(watch('cemento')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('agua')) / Number(watch('tanda'))) ? (Number(watch('agua')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('arena')) / Number(watch('tanda'))) ? (Number(watch('arena')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda'))) ? (Number(watch('arena2')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda'))) ? (Number(watch('piedra2')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0))*5
         ).toFixed(2)}`, colSpan: 1, styles: { halign: 'center' } },
@@ -319,7 +349,9 @@ export const Tabla = (): JSX.Element => {
           ((Number.isFinite(Number(watch('cemento')) / Number(watch('tanda'))) ? (Number(watch('cemento')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('agua')) / Number(watch('tanda'))) ? (Number(watch('agua')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('arena')) / Number(watch('tanda'))) ? (Number(watch('arena')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda'))) ? (Number(watch('arena2')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda'))) ? (Number(watch('piedra2')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0))*8
         ).toFixed(2)}`, colSpan: 1, styles: { halign: 'center' } },
@@ -403,7 +435,10 @@ export const Tabla = (): JSX.Element => {
         halign: 'center'
       }
     })
-
+    const titlecomment = 'Comentario Prueba 1';
+    const titlecommentWidth = doc.getTextWidth(titlecomment);
+    let currentY1 = (doc as any).lastAutoTable?.finalY + 10 || 10
+    doc.text(titlecomment, 20, currentY1);
     const commentario = formData.comment
     const maxWidth = pageWidth - 20
     const fontSize = 10
@@ -411,14 +446,14 @@ export const Tabla = (): JSX.Element => {
 
     const lines = doc.splitTextToSize(commentario, maxWidth)
     const lineHeight = fontSize * 0.60 // Más compacto
-    let currentY = (doc as any).lastAutoTable?.finalY + 10 || 10
+    let currentY = (doc as any).lastAutoTable?.finalY + 20 || 10
 
     lines.forEach((line: string) => {
       // if (currentY + lineHeight > pageHeight - 20) {
       //   doc.addPage()
       //   currentY = 10
       // }
-      doc.text(line, 10, currentY)
+      doc.text(line, 30, currentY)
       currentY += lineHeight
     })
 
@@ -541,10 +576,6 @@ export const Tabla = (): JSX.Element => {
     window.open(pdfUrl, '_blank')
   }
 
-  useEffect(() => {
-    console.log(file)
-  }, [file])
-
   return (
     <div className="">
     <div className="mx-auto rounded-bl-md rounded-br-md overflow-hidden w- shadow-md overflow-x-auto mb-8">
@@ -577,7 +608,13 @@ export const Tabla = (): JSX.Element => {
       </div>
 
     <div className="p-1 md:p-4 flex w-screen  justify-center px-1 md:px-8 ">
-    <form action="" onSubmit={handleSubmit(onSubmit)} autoComplete="false" className="w-full">
+    <form action="" onSubmit={handleSubmit(onSubmit)} 
+    // onKeyDown={(e) => {
+    //   if (e.key === 'Enter') {
+    //     e.preventDefault(); // Evita el submit al presionar Enter
+    //   }
+    // }}
+    autoComplete="false" className="w-full">
     <div className="border mx-auto rounded-lg max-w-7xl overflow-hidden shadow-md overflow-x-auto">
         <div className="bg-gray-200 text-center p-2 font-bold">
           <div>{' '} &nbsp; &nbsp;</div>
@@ -589,7 +626,7 @@ export const Tabla = (): JSX.Element => {
                   className={'bg-white'}
                 >
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
-                    CEMENTO
+                    CEMENTO (Kg)
                   </td>
                   <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
                     <KInputTable type='string' label="" placeholder='' reactHookForm={{ ...register('cemento'), defaultValue: '' }} />
@@ -613,7 +650,7 @@ export const Tabla = (): JSX.Element => {
                   className={'bg-white'}
                 >
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
-                    AGUA
+                    AGUA (Lt)
                   </td>
                   <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
                     <KInputTable type='string' label="" placeholder='' reactHookForm={{ ...register('agua'), defaultValue: '' }} />
@@ -626,16 +663,32 @@ export const Tabla = (): JSX.Element => {
                   }
                   </td>
                   <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
-                    TOTAL.AG
+                    PESO TEORICO
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
-                  {(
+                  {(  
+                        (Number.isFinite(Number(watch('cemento')) / Number(watch('tanda'))) 
+                        ? (Number(watch('cemento')) / Number(watch('tanda')) || 0) 
+                        : 0) 
+                      +
                       (Number.isFinite(Number(watch('arena')) / Number(watch('tanda'))) 
                         ? (Number(watch('arena')) / Number(watch('tanda')) || 0) 
                         : 0) 
                       +
+                      (Number.isFinite(Number(watch('agua')) / Number(watch('tanda'))) 
+                        ? (Number(watch('agua')) / Number(watch('tanda')) || 0) 
+                        : 0) 
+                      +
                       (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) 
                         ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) 
+                        : 0)
+                      +
+                      (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda'))) 
+                        ? (Number(watch('arena2')) / Number(watch('tanda')) || 0) 
+                        : 0) 
+                      +
+                      (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda'))) 
+                        ? (Number(watch('piedra2')) / Number(watch('tanda')) || 0) 
                         : 0)
                     ).toFixed(2) || '0.00'}
                   </td>
@@ -645,7 +698,7 @@ export const Tabla = (): JSX.Element => {
                   className={'bg-white'}
                 >
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
-                    ARENA
+                    ARENA 1 (Kg)
                   </td>
                   <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
                     <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('arena'), defaultValue: '' }} />
@@ -658,7 +711,7 @@ export const Tabla = (): JSX.Element => {
                   }
                   </td>
                   <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
-                    RF. ARENA
+                    RF. ARENA 1
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
                   { 
@@ -676,6 +729,14 @@ export const Tabla = (): JSX.Element => {
         ) +
         (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
           ? (Number(watch('piedra')) / Number(watch('tanda')))
+          : 0
+        ) +
+        (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+          ? (Number(watch('arena2')) / Number(watch('tanda')))
+          : 0
+        ) +
+        (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+          ? (Number(watch('piedra2')) / Number(watch('tanda')))
           : 0
         )
       )
@@ -695,6 +756,14 @@ export const Tabla = (): JSX.Element => {
           (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
             ? (Number(watch('piedra')) / Number(watch('tanda')))
             : 0
+          )+
+          (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+            ? (Number(watch('arena2')) / Number(watch('tanda')))
+            : 0
+          ) +
+          (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+            ? (Number(watch('piedra2')) / Number(watch('tanda')))
+            : 0
           )
         )
       )
@@ -704,76 +773,256 @@ export const Tabla = (): JSX.Element => {
 
                   </td>
                 </tr>
+
                 <tr
                   className={'bg-white'}
                 >
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
-                    PIEDRA
+                    ARENA 2 (Kg)
+                  </td>
+                  <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
+                    <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('arena2'), defaultValue: '' }} />
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {
+                    Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+                      ? ((Number(watch('arena2')) / Number(watch('tanda')) || 0).toFixed(2))
+                      : "0.00"
+                  }
+                  </td>
+                  <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
+                    RF. ARENA 2
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  { 
+                    Number.isFinite(
+                      100 *
+                      (
+                        (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+                          ? (Number(watch('arena2')) / Number(watch('tanda')))
+                          : 0
+                        ) /
+                        (
+                          (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+                            ? (Number(watch('arena')) / Number(watch('tanda')))
+                            : 0
+                          ) +
+                          (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+                            ? (Number(watch('piedra')) / Number(watch('tanda')))
+                            : 0
+                          ) +
+                          (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+                            ? (Number(watch('arena2')) / Number(watch('tanda')))
+                            : 0
+                          ) +
+                          (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+                            ? (Number(watch('piedra2')) / Number(watch('tanda')))
+                            : 0
+                          )
+                        )
+                      )
+                    ) 
+                      ? (100 *
+                        (
+                          (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+                            ? (Number(watch('arena2')) / Number(watch('tanda')))
+                            : 0
+                          ) /
+                          (
+                            (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+                              ? (Number(watch('arena')) / Number(watch('tanda')))
+                              : 0
+                            ) +
+                            (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+                              ? (Number(watch('piedra')) / Number(watch('tanda')))
+                              : 0
+                            ) +
+                            (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+                              ? (Number(watch('arena2')) / Number(watch('tanda')))
+                              : 0
+                            ) +
+                            (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+                              ? (Number(watch('piedra2')) / Number(watch('tanda')))
+                              : 0
+                            )
+                          )
+                        )
+                      ).toFixed(2) 
+                      : '0.00'
+                  }
+
+                  </td>
+                </tr>
+
+                <tr
+                  className={'bg-white'}
+                >
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
+                    PIEDRA 1 (Kg)
                   </td>
                   <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
                     <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('piedra'), defaultValue: '' }} />
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
                   {
-  Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
-    ? (Number(watch('piedra')) / Number(watch('tanda')) || 0).toFixed(2)
-    : '0.00'
-}
+                    Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+                      ? (Number(watch('piedra')) / Number(watch('tanda')) || 0).toFixed(2)
+                      : '0.00'
+                  }
 
                   </td>
                   <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
-                    RF. PIEDRA
+                    RF. PIEDRA 1
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
                   { 
-  Number.isFinite(
-    100 *
-    (
-      (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
-        ? (Number(watch('piedra')) / Number(watch('tanda')))
-        : 0
-      ) /
-      (
-        (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
-          ? (Number(watch('arena')) / Number(watch('tanda')))
-          : 0
-        ) +
-        (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
-          ? (Number(watch('piedra')) / Number(watch('tanda')))
-          : 0
-        )
-      )
-    )
-  ) 
-    ? (
-      100 *
-      (
-        (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
-          ? (Number(watch('piedra')) / Number(watch('tanda')))
-          : 0
-        ) /
-        (
-          (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
-            ? (Number(watch('arena')) / Number(watch('tanda')))
-            : 0
-          ) +
-          (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
-            ? (Number(watch('piedra')) / Number(watch('tanda')))
-            : 0
-          )
-        )
-      )
-    ).toFixed(2) 
-    : '0.00'
-}
+                    Number.isFinite(
+                      100 *
+                      (
+                        (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+                          ? (Number(watch('piedra')) / Number(watch('tanda')))
+                          : 0
+                        ) /
+                        (
+                          (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+                            ? (Number(watch('arena')) / Number(watch('tanda')))
+                            : 0
+                          ) +
+                          (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+                            ? (Number(watch('piedra')) / Number(watch('tanda')))
+                            : 0
+                          )+
+                          (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+                            ? (Number(watch('arena2')) / Number(watch('tanda')))
+                            : 0
+                          ) +
+                          (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+                            ? (Number(watch('piedra2')) / Number(watch('tanda')))
+                            : 0
+                          )
+                        )
+                      )
+                    ) 
+                      ? (
+                        100 *
+                        (
+                          (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+                            ? (Number(watch('piedra')) / Number(watch('tanda')))
+                            : 0
+                          ) /
+                          (
+                            (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+                              ? (Number(watch('arena')) / Number(watch('tanda')))
+                              : 0
+                            ) +
+                            (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+                              ? (Number(watch('piedra')) / Number(watch('tanda')))
+                              : 0
+                            )+
+                            (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+                              ? (Number(watch('arena2')) / Number(watch('tanda')))
+                              : 0
+                            ) +
+                            (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+                              ? (Number(watch('piedra2')) / Number(watch('tanda')))
+                              : 0
+                            )
+                          )
+                        )
+                      ).toFixed(2) 
+                      : '0.00'
+                  }
 
                   </td>
                 </tr>
+
                 <tr
                   className={'bg-white'}
                 >
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
-                    1200
+                    PIEDRA 2 (Kg)
+                  </td>
+                  <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
+                    <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('piedra2'), defaultValue: '' }} />
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  {
+                    Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+                      ? (Number(watch('piedra2')) / Number(watch('tanda')) || 0).toFixed(2)
+                      : '0.00'
+                  }
+
+                  </td>
+                  <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
+                    RF. PIEDRA 2
+                  </td>
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
+                  { 
+                    Number.isFinite(
+                      100 *
+                      (
+                        (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+                          ? (Number(watch('piedra2')) / Number(watch('tanda')))
+                          : 0
+                        ) /
+                        (
+                          (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+                            ? (Number(watch('arena')) / Number(watch('tanda')))
+                            : 0
+                          ) +
+                          (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+                            ? (Number(watch('piedra')) / Number(watch('tanda')))
+                            : 0
+                          )+
+                          (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+                            ? (Number(watch('arena2')) / Number(watch('tanda')))
+                            : 0
+                          ) +
+                          (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+                            ? (Number(watch('piedra2')) / Number(watch('tanda')))
+                            : 0
+                          )
+                        )
+                      )
+                    ) 
+                      ? (
+                        100 *
+                        (
+                          (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+                            ? (Number(watch('piedra2')) / Number(watch('tanda')))
+                            : 0
+                          ) /
+                          (
+                            (Number.isFinite(Number(watch('arena')) / Number(watch('tanda')))
+                            ? (Number(watch('arena')) / Number(watch('tanda')))
+                            : 0
+                          ) +
+                          (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda')))
+                            ? (Number(watch('piedra')) / Number(watch('tanda')))
+                            : 0
+                          )+
+                          (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda')))
+                            ? (Number(watch('arena2')) / Number(watch('tanda')))
+                            : 0
+                          ) +
+                          (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda')))
+                            ? (Number(watch('piedra2')) / Number(watch('tanda')))
+                            : 0
+                          )
+                          )
+                        )
+                      ).toFixed(2) 
+                      : '0.00'
+                  }
+
+                  </td>
+                </tr>
+
+                <tr
+                  className={'bg-white'}
+                >
+                  <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
+                    Aditivo 1200 (Gr)
                   </td>
                   <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
                     <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('n1200'), defaultValue: '' }} />
@@ -787,7 +1036,7 @@ export const Tabla = (): JSX.Element => {
 
                   </td>
                   <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
-                    Aditivo 1200
+                    Aditivo 1200 (Gr)
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
                   {(
@@ -800,7 +1049,7 @@ export const Tabla = (): JSX.Element => {
                   className={'bg-white'}
                 >
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
-                    RF 25
+                  Aditivo RF 25 (Gr)
                   </td>
                   <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
                     <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('rf25'), defaultValue: '' }} />
@@ -846,7 +1095,9 @@ export const Tabla = (): JSX.Element => {
     (Number.isFinite(Number(watch('cemento')) / Number(watch('tanda'))) ? (Number(watch('cemento')) / Number(watch('tanda')) || 0) : 0) +
     (Number.isFinite(Number(watch('agua')) / Number(watch('tanda'))) ? (Number(watch('agua')) / Number(watch('tanda')) || 0) : 0) +
     (Number.isFinite(Number(watch('arena')) / Number(watch('tanda'))) ? (Number(watch('arena')) / Number(watch('tanda')) || 0) : 0) +
+    (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda'))) ? (Number(watch('arena2')) / Number(watch('tanda')) || 0) : 0) +
     (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
+    (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda'))) ? (Number(watch('piedra2')) / Number(watch('tanda')) || 0) : 0) +
     (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
     (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0)
   ).toFixed(2)
@@ -863,7 +1114,6 @@ export const Tabla = (): JSX.Element => {
   (100 * (Number(watch('rf25')) / Number(watch('tanda')) || 0) /
   (Number(watch('cemento')) / Number(watch('tanda')) || 1))
 ).toFixed(2)}
-
                   </td>
                 </tr>
             </tbody>
@@ -939,7 +1189,8 @@ export const Tabla = (): JSX.Element => {
       <div className="max-w-5xl px-5 mt-5 mx-auto flex flex-col sm:flex-row gap-5">
         <div className="w-full sm:w-2/4 ">
           <h2 className="text-xl font-bold">Comentarios:</h2>
-          <KInputArea type='text' label="" placeholder='' reactHookForm={{ ...register('comment'), defaultValue: '' }} />
+          <KInputArea type='text' label="" placeholder=''
+          reactHookForm={{ ...register('comment'), defaultValue: '' }} />
         </div>
         <div className="w-full sm:w-1/4 flex justify-center align-middle items-center">
           <KInputUpload
