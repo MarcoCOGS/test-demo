@@ -1050,6 +1050,7 @@ export const Tabla = (): JSX.Element => {
                       ).toFixed(2)
                       : "0.00"
                   }
+                  &nbsp;%
                   </td>
                 </tr>
                 <tr
@@ -1084,7 +1085,7 @@ export const Tabla = (): JSX.Element => {
                       ).toFixed(2)
                       : "0.00"
                   }
-
+                  &nbsp;%
                   </td>
                 </tr>
                 <tr
