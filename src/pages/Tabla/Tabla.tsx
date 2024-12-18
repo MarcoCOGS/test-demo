@@ -299,27 +299,27 @@ export const Tabla = (): JSX.Element => {
       [
         { content: 'Aditivo 1200', colSpan: 1, styles: { halign: 'center' } },
         { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
-        { content: `${Number.isFinite(Number(watch('n1200')) / Number(watch('tanda')))
-        ? (Number(watch('n1200')) / Number(watch('tanda')) || 0).toFixed(2)
+        { content: `${Number.isFinite((Number(watch('n1200'))/1000 ) / Number(watch('tanda')))
+        ? ((Number(watch('n1200'))/1000 ) / Number(watch('tanda')) || 0).toFixed(2)
         : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
-        { content: `${Number.isFinite(Number(watch('n1200')) / Number(watch('tanda')))
-        ? (Number(watch('n1200')*5) / Number(watch('tanda')) || 0).toFixed(2)
+        { content: `${Number.isFinite((Number(watch('n1200'))/1000 ) / Number(watch('tanda')))
+        ? (Number((watch('n1200')/1000)*5) / Number(watch('tanda')) || 0).toFixed(2)
         : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
-        { content: `${Number.isFinite(Number(watch('n1200')) / Number(watch('tanda')))
-        ? (Number(watch('n1200')*8) / Number(watch('tanda')) || 0).toFixed(2)
+        { content: `${Number.isFinite((Number(watch('n1200'))/1000 ) / Number(watch('tanda')))
+        ? (Number((watch('n1200')/1000)*8) / Number(watch('tanda')) || 0).toFixed(2)
         : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
       ],
       [
         { content: 'Aditivo RF 25', colSpan: 1, styles: { halign: 'center' } },
         { content: 'Kg', colSpan: 1, styles: { halign: 'center' } },
-        { content: `${Number.isFinite(Number(watch('rf25')) / Number(watch('tanda')))
-        ? (Number(watch('rf25')) / Number(watch('tanda')) || 0).toFixed(2)
+        { content: `${Number.isFinite((Number(watch('rf25'))/1000 ) / Number(watch('tanda')))
+        ? ((Number(watch('rf25'))/1000 ) / Number(watch('tanda')) || 0).toFixed(2)
         : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
-        { content: `${Number.isFinite(Number(watch('rf25')) / Number(watch('tanda')))
-        ? (Number(watch('rf25')*5) / Number(watch('tanda')) || 0).toFixed(2)
+        { content: `${Number.isFinite((Number(watch('rf25'))/1000 ) / Number(watch('tanda')))
+        ? (Number((watch('rf25')/1000)*5) / Number(watch('tanda')) || 0).toFixed(2)
         : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
-        { content: `${Number.isFinite(Number(watch('rf25')) / Number(watch('tanda')))
-        ? (Number(watch('rf25')*8) / Number(watch('tanda')) || 0).toFixed(2)
+        { content: `${Number.isFinite((Number(watch('rf25'))/1000 ) / Number(watch('tanda')))
+        ? (Number((watch('rf25')/1000)*8) / Number(watch('tanda')) || 0).toFixed(2)
         : '0.00'}`, colSpan: 1, styles: { halign: 'center' } },
       ],
       [
@@ -332,8 +332,8 @@ export const Tabla = (): JSX.Element => {
           (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda'))) ? (Number(watch('arena2')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda'))) ? (Number(watch('piedra2')) / Number(watch('tanda')) || 0) : 0) +
-          (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
-          (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0)
+          (Number.isFinite((Number(watch('n1200'))/1000 ) / Number(watch('tanda'))) ? ((Number(watch('n1200'))/1000 ) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite((Number(watch('rf25'))/1000 ) / Number(watch('tanda'))) ? ((Number(watch('rf25'))/1000 ) / Number(watch('tanda')) || 0) : 0)
         ).toFixed(2)}`, colSpan: 1, styles: { halign: 'center' } },
         { content: `${(
           ((Number.isFinite(Number(watch('cemento')) / Number(watch('tanda'))) ? (Number(watch('cemento')) / Number(watch('tanda')) || 0) : 0) +
@@ -342,8 +342,8 @@ export const Tabla = (): JSX.Element => {
           (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda'))) ? (Number(watch('arena2')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda'))) ? (Number(watch('piedra2')) / Number(watch('tanda')) || 0) : 0) +
-          (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
-          (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0))*5
+          (Number.isFinite((Number(watch('n1200'))/1000 ) / Number(watch('tanda'))) ? ((Number(watch('n1200'))/1000 ) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite((Number(watch('rf25'))/1000 ) / Number(watch('tanda'))) ? ((Number(watch('rf25'))/1000 ) / Number(watch('tanda')) || 0) : 0))*5
         ).toFixed(2)}`, colSpan: 1, styles: { halign: 'center' } },
         { content: `${(
           ((Number.isFinite(Number(watch('cemento')) / Number(watch('tanda'))) ? (Number(watch('cemento')) / Number(watch('tanda')) || 0) : 0) +
@@ -352,8 +352,8 @@ export const Tabla = (): JSX.Element => {
           (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda'))) ? (Number(watch('arena2')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
           (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda'))) ? (Number(watch('piedra2')) / Number(watch('tanda')) || 0) : 0) +
-          (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
-          (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0))*8
+          (Number.isFinite((Number(watch('n1200'))/1000 ) / Number(watch('tanda'))) ? ((Number(watch('n1200'))/1000 ) / Number(watch('tanda')) || 0) : 0) +
+          (Number.isFinite((Number(watch('rf25'))/1000 ) / Number(watch('tanda'))) ? ((Number(watch('rf25'))/1000 ) / Number(watch('tanda')) || 0) : 0))*8
         ).toFixed(2)}`, colSpan: 1, styles: { halign: 'center' } },
       ]
     ]
@@ -1022,61 +1022,68 @@ export const Tabla = (): JSX.Element => {
                   className={'bg-white'}
                 >
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
-                    Aditivo 1200 (Gr)
+                    Aditivo 1 (Gr)
                   </td>
                   <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
                     <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('n1200'), defaultValue: '' }} />
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
                   {
-  Number.isFinite(Number(watch('n1200')) / Number(watch('tanda')))
-    ? (Number(watch('n1200')) / Number(watch('tanda')) || 0).toFixed(2)
+  Number.isFinite(((Number(watch('n1200'))/1000 )/1000 )/ Number(watch('tanda')))
+    ? ((Number(watch('n1200'))/1000 ) / Number(watch('tanda')) || 0).toFixed(2)
     : '0.00'
 }
 
                   </td>
                   <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
-                    Aditivo 1200 (Gr)
+                    Aditivo 1 (Gr)
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
-                  {(
-                    100 * (Number(watch('n1200')) / Number(watch('tanda')) || 0) /
-                    (Number(watch('cemento')) / Number(watch('tanda')) || 1)
-                  ).toFixed(2)}
+                  { 
+                    Number.isFinite(
+                      100 * ((Number(watch('n1200'))/1000 ) / Number(watch('tanda'))) /
+                      (Number(watch('cemento')) / Number(watch('tanda')) || 1)
+                    )
+                      ? (
+                        100 * ((Number(watch('n1200'))/1000 ) / Number(watch('tanda'))) /
+                        (Number(watch('cemento')) / Number(watch('tanda')) || 1)
+                      ).toFixed(2)
+                      : "0.00"
+                  }
                   </td>
                 </tr>
                 <tr
                   className={'bg-white'}
                 >
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300  py-2 text-center">
-                  Aditivo RF 25 (Gr)
+                  Aditivo 2 (Gr)
                   </td>
                   <td className={'border border-gray-300 min-w-[150px] w-40 text-center h-10'}>
                     <KInputTable type='text' label="" placeholder='' reactHookForm={{ ...register('rf25'), defaultValue: '' }} />
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
                   {
-  Number.isFinite(Number(watch('rf25')) / Number(watch('tanda')))
-    ? (Number(watch('rf25')) / Number(watch('tanda')) || 0).toFixed(2)
+  Number.isFinite((Number(watch('rf25'))/1000 ) / Number(watch('tanda')))
+    ? ((Number(watch('rf25'))/1000 ) / Number(watch('tanda')) || 0).toFixed(2)
     : '0.00'
 }
 
                   </td>
                   <td className="border min-w-[150px] border-gray-300 px-4 py-2 text-center">
-                    Aditivo RF 25
+                    Aditivo 2 (Gr)
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
                   { 
-  Number.isFinite(
-    100 * (Number(watch('rf25')) / Number(watch('tanda'))) /
-    (Number(watch('cemento')) / Number(watch('tanda')) || 1)
-  )
-    ? (
-      100 * (Number(watch('rf25')) / Number(watch('tanda'))) /
-      (Number(watch('cemento')) / Number(watch('tanda')) || 1)
-    ).toFixed(2)
-    : "0.00"
-}
+                    Number.isFinite(
+                      100 * ((Number(watch('rf25'))/1000 ) / Number(watch('tanda'))) /
+                      (Number(watch('cemento')) / Number(watch('tanda')) || 1)
+                    )
+                      ? (
+                        100 * ((Number(watch('rf25'))/1000 ) / Number(watch('tanda'))) /
+                        (Number(watch('cemento')) / Number(watch('tanda')) || 1)
+                      ).toFixed(2)
+                      : "0.00"
+                  }
 
                   </td>
                 </tr>
@@ -1098,8 +1105,8 @@ export const Tabla = (): JSX.Element => {
     (Number.isFinite(Number(watch('arena2')) / Number(watch('tanda'))) ? (Number(watch('arena2')) / Number(watch('tanda')) || 0) : 0) +
     (Number.isFinite(Number(watch('piedra')) / Number(watch('tanda'))) ? (Number(watch('piedra')) / Number(watch('tanda')) || 0) : 0) +
     (Number.isFinite(Number(watch('piedra2')) / Number(watch('tanda'))) ? (Number(watch('piedra2')) / Number(watch('tanda')) || 0) : 0) +
-    (Number.isFinite(Number(watch('n1200')) / Number(watch('tanda'))) ? (Number(watch('n1200')) / Number(watch('tanda')) || 0) : 0) +
-    (Number.isFinite(Number(watch('rf25')) / Number(watch('tanda'))) ? (Number(watch('rf25')) / Number(watch('tanda')) || 0) : 0)
+    (Number.isFinite((Number(watch('n1200'))/1000 ) / Number(watch('tanda'))) ? ((Number(watch('n1200'))/1000 ) / Number(watch('tanda')) || 0) : 0) +
+    (Number.isFinite((Number(watch('rf25'))/1000 ) / Number(watch('tanda'))) ? ((Number(watch('rf25'))/1000 ) / Number(watch('tanda')) || 0) : 0)
   ).toFixed(2)
 }
 
@@ -1108,12 +1115,17 @@ export const Tabla = (): JSX.Element => {
                     TOTAL
                   </td>
                   <td className="border min-w-[150px] max-w-[239px] border-gray-300 px-4 py-2 text-center">
-                  {(
-  (100 * (Number(watch('n1200')) / Number(watch('tanda')) || 0) / 
-  (Number(watch('cemento')) / Number(watch('tanda')) || 1)) +
-  (100 * (Number(watch('rf25')) / Number(watch('tanda')) || 0) /
-  (Number(watch('cemento')) / Number(watch('tanda')) || 1))
-).toFixed(2)}
+                  {Number.isFinite(
+                    (100 * ((Number(watch('n1200'))/1000 ) / Number(watch('tanda')) || 0) / 
+                    (Number(watch('cemento')) / Number(watch('tanda')) || 1)) +
+                    (100 * ((Number(watch('rf25'))/1000 ) / Number(watch('tanda')) || 0) /
+                    (Number(watch('cemento')) / Number(watch('tanda')) || 1))
+                  )  ? (
+                    (100 * ((Number(watch('n1200'))/1000 ) / Number(watch('tanda')) || 0) / 
+                    (Number(watch('cemento')) / Number(watch('tanda')) || 1)) +
+                    (100 * ((Number(watch('rf25'))/1000 ) / Number(watch('tanda')) || 0) /
+                    (Number(watch('cemento')) / Number(watch('tanda')) || 1))
+                  ).toFixed(2):'0.00'}
                   </td>
                 </tr>
             </tbody>
